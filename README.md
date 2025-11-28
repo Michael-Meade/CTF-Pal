@@ -35,7 +35,11 @@ puts "\n\n\n====BinWalk====\n\n\n".red
 ctf.bin_walk
 puts "\n\n\n====BinWalk====\n\n\n".red
 ```
+## Installing tools
 
+```
+sudo snap install hash-id
+```
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/CTF_Pal.

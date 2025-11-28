@@ -7,10 +7,11 @@ require_relative "CTF_Pal/version"
 
 module CTFPal
   class Files
-    attr_accessor :file
+    attr_accessor :file, :wl
 
     def initialize
       @file = file
+      @wl   = wl
     end
     def file
       @file
@@ -58,12 +59,36 @@ module CTFPal
         end
       end
     end
+
+    def stegskeek
+      unless @wl.nil?
+        unless @file.nil?
+          cmd = `stegseek #{Shellwords.escape(@file)} -wl #{@wl} `
+          puts cmd
+        else
+          puts "Please give a file."
+        end
+      else
+        puts "Please give a word list."
+      end
+    end
     def exiftool
       cmd = `exiftool  #{Shellwords.escape(@file)}`
       puts "#{cmd}"
     end
     def bin_walk
       cmd = `binwalk #{Shellwords.escape(@file)} -e`
+      puts cmd
+    end
+  end
+  class DetectHash
+    attr_accessor :input
+
+    def initialize
+      @input = input
+    end
+    def detect_hash
+      cmd = `hash-id -h #{Shellwords.escape(@input)}`
       puts cmd
     end
   end

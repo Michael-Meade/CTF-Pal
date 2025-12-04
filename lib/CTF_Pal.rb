@@ -59,10 +59,19 @@ module CTFPal
         end
       end
     end
-
-    def stegskeek
+    def apktool
+      # makes sure that the inputted file is an apk. 
+      if File.extname(@file).eql?("apk")
+        cmd = `apktool d #{Shellwords.escape(@file)}`
+        puts cmd
+      else
+        puts "Please use an APK file..."
+      end
+    end
+    def stegseek
       unless @wl.nil?
         unless @file.nil?
+          # -wl is the wordlist. This is needed.
           cmd = `stegseek #{Shellwords.escape(@file)} -wl #{@wl} `
           puts cmd
         else
@@ -79,6 +88,17 @@ module CTFPal
     def bin_walk
       cmd = `binwalk #{Shellwords.escape(@file)} -e`
       puts cmd
+    end
+    def ltrace(input: nil)
+      unless input.eql?(nil)
+        # input = "mc"
+        puts "TESTTT>"
+        cmd = `ltrace -s 500 ./#{Shellwords.escape(@file)} #{input}`
+        puts cmd
+      else
+        cmd = `ltrace -s 500 ./#{Shellwords.escape(@file)}`
+        puts cmd
+      end
     end
   end
   class DetectHash

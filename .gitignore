@@ -13,3 +13,6 @@ Caddyfile
 *.png
 *.jpg
 *.jpeg
+my_secret_recipe
+app-release.apk
+*.apk

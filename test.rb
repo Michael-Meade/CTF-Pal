@@ -44,6 +44,9 @@ if input.eql?(1)
 
 	puts "\n\n\n====Checking the strings====\n\n\n".red
 
+	puts "\n\n\n====Ltrace====\n\n\n".red
+	ctf.ltrace(input: "mm")
+	puts "\n\n\n====Ltrace====\n\n\n".red
 
 	puts "\n\n\n====ExifTool=====\n\n\n".red
 	ctf.exiftool
@@ -71,14 +74,17 @@ if input.eql?(1)
 		#puts ctf.get_file_info
 		ctf.detect_file.to_s.green
 	end
+
+	puts "\n\n\n====STEG-SEEK====\n\n\n".red
+	# STEGSEEK
+	ctf.stegseek
+	puts "\n\n\n====STEG-SEEK====\n\n\n".red
+
 elsif input.eql?(2)
 	print("hash id> ")
 	h = gets.chomp
 	puts "\n\n\n"
 	dh = CTFPal::DetectHash.new
-
 	dh.input = h
-
-
 	dh.detect_hash
 end

@@ -1,6 +1,6 @@
 # CTFPal
 
-Performs a couple of test looking for low hanging flags. Stuff like `strings`, `binwalk`,`apktool`,`exif data`.
+Performs a couple of test looking for low hanging flags. Stuff like `strings`, `binwalk`,`apktool`,`exif data`, `web robots.txt`, `ltrace`.
 
 ## Installation
 
@@ -10,8 +10,6 @@ You will need to install the gem `colorize` for it to work.
 
 `gem install colorize`
 
-```ruby
-```
 ## Installing tools
 
 ```

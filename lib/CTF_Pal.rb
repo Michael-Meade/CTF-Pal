@@ -2,10 +2,31 @@
 require "base64"
 require 'shellwords'
 require 'fileutils'
+require 'net/http'
+require 'uri'
 
 require_relative "CTF_Pal/version"
 
 module CTFPal
+  class Web
+    attr_accessor :site
+    def initialize
+      @site = site
+    end
+    def robots
+      ["robots.txt", "security.txt", "ai-plugin.json", "/.well-known/",
+        "ads.txt", "dnt-policy.txt", "host-meta.json", "host-meta", "keybase.txt",
+        "statements.txt", "gpc.json", "agent-card.json"].each do |path|
+        unless @site.include?("https://")
+          uri = URI("https://" + File.join(@site, "#{path}"))
+        else
+          uri = URI(File.join(@site, "#{path}"))
+        end
+        response = Net::HTTP.get_response(uri)
+        puts response.body if response.is_a?(Net::HTTPSuccess)
+      end
+    end
+  end
   class Files
     attr_accessor :file, :wl
 
@@ -91,8 +112,6 @@ module CTFPal
     end
     def ltrace(input: nil)
       unless input.eql?(nil)
-        # input = "mc"
-        puts "TESTTT>"
         cmd = `ltrace -s 500 ./#{Shellwords.escape(@file)} #{input}`
         puts cmd
       else

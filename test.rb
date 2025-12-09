@@ -1,13 +1,13 @@
 #!/usr/bin/env ruby3.2
 require './lib/CTF_Pal'
-require 'CTF_Pal'
+#rerequire 'CTF_Pal'
 require 'colorize'
 # get an array of all the current files and folders
 before_filenames = Dir.glob("*")
 menu = "
 	1) Analyze File
 	2) Analyze Hash
-
+	3) Web
 \n\n\n"
 puts menu
 print("menu> ")
@@ -87,4 +87,12 @@ elsif input.eql?(2)
 	dh = CTFPal::DetectHash.new
 	dh.input = h
 	dh.detect_hash
+elsif input.eql?(3)
+	print("Enter site>")
+	site = gets.chomp
+	print("\n\n\n\n\n\n")
+	web = CTFPal::Web.new
+	web.site = site
+	web.robots
+	print("\n\n\n\n")
 end

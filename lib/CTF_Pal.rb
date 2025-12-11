@@ -10,11 +10,30 @@ require_relative "CTF_Pal/version"
 module CTFPal
   class Web
     attr_accessor :site
-    def initialize
+    def initialize(file: 'big.txt')
       @site = site
+      @file = file
+    end
+    def headers
+      unless @site.include?("https://")
+        uri = URI("https://" + @site)
+      else
+        uri = URI(@site)
+      end
+      response = Net::HTTP.get_response(uri)
+      response.header.each do |k,v|
+        puts "#{k}: #{v}"
+      end
+    end
+    def ffuf
+      unless @site.include?("https://")
+        @site = "https://#{@site}"
+      end 
+      cmd = "ffuf -u #{Shellwords.escape(@site)}/FUZZ -w #{Shellwords.escape(@file)}"
+      `#{cmd}` 
     end
     def robots
-      ["robots.txt", "security.txt", "ai-plugin.json", "/.well-known/",
+      ["robots.txt", "/.well-known/security.txt", "ai-plugin.json", "/.well-known/",
         "ads.txt", "dnt-policy.txt", "host-meta.json", "host-meta", "keybase.txt",
         "statements.txt", "gpc.json", "agent-card.json"].each do |path|
         unless @site.include?("https://")

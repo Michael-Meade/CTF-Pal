@@ -94,5 +94,9 @@ elsif input.eql?(3)
 	web = CTFPal::Web.new
 	web.site = site
 	web.robots
-	print("\n\n\n\n")
+	print("\n\n\n\n\n\n")
+	web.headers
+
+	print("\n\n\n\n\n\n")
+	web.ffuf
 end
